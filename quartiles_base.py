@@ -169,7 +169,7 @@ def updateRowReference(main_df, ref_df_list, q_thresholdindexarray):
     main_df['ROW_REF2_COMBINED'] = (main_df['ROW_REF2'].fillna(0) + main_df['ROW_REF2_x'].fillna(0) + main_df['ROW_REF2_y'].fillna(0))
     main_df['ROW_REF_FINAL'] = (main_df.apply(lambda row: row['ROW_REF'] if row['ROW_REF2_COMBINED'] == 0 else row['ROW_REF2_COMBINED'], axis=1))
     main_df['QUARTILE'] = (main_df['ROW_REF_FINAL'].apply(quartileAssignment,i = q_thresholdindexarray))
-    main_df = main_df.drop(columns=['ROW_REF2', 'ROW_REF2_x', 'ROW_REF2_y','ROW_REF2_COMBINED', 'ROW_REF'])
+    main_df = main_df.drop(columns=['ROW_REF2', 'ROW_REF2_x', 'ROW_REF2_y','ROW_REF2_COMBINED'])
 
     change_count = sum(main_df['ROW_REF'] != main_df['ROW_REF_FINAL'])
     checksum =  sum(main_df['ROW_REF']) - sum(main_df['ROW_REF_FINAL'])
@@ -177,6 +177,7 @@ def updateRowReference(main_df, ref_df_list, q_thresholdindexarray):
         print("Final checksum complete, reallocated {} rows".format(change_count))
     else:
         print("Potential error in re-allocations - please check")
+    main_df = main_df.drop(columns=['ROW_REF'])    
     return main_df
 
 def quartileAssignment(x,i):
