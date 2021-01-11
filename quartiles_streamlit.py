@@ -75,6 +75,7 @@ if uploaded_file is not None:
     summary_df_count, summary_df_pct = qb.calculateQuartileComposition(data)
     stats_dict_df = pd.DataFrame(stats_dict_list, index=['Q1/Q2', 'Q2/Q3', 'Q3/Q4'])
     st.write(stats_dict_df)
+    
 
     st.markdown("### Visualisation of final allocations")
     st.bokeh_chart(v1, use_container_width=True)
